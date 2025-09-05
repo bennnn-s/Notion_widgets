@@ -178,6 +178,16 @@ body {
     if (auto) {
       slideInterval = setInterval(nextSlide, intervalTime);
     }
+          // 滑鼠左鍵點整個 slider，就到下一張
+const sliderEl = document.querySelector(".slider");
+sliderEl.addEventListener("click", () => {
+  nextSlide();
+  if (auto) {
+    clearInterval(slideInterval);
+    slideInterval = setInterval(nextSlide, intervalTime);
+  }
+});
+
 
   </script>
 
