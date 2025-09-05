@@ -187,6 +187,25 @@ sliderEl.addEventListener("click", () => {
     slideInterval = setInterval(nextSlide, intervalTime);
   }
 });
+    // --- 循環起始張：每次載入換下一張（避免重覆） ---
+(function setRotatingStart() {
+  try {
+    const key = 'slider_last_index';
+    const last = parseInt(localStorage.getItem(key), 10);
+    const startIndex = Number.isInteger(last)
+      ? (last + 1) % slides.length
+      : Math.floor(Math.random() * slides.length); // 第一次隨機
+    document.querySelector('.slide.current')?.classList.remove('current');
+    slides[startIndex].classList.add('current');
+    localStorage.setItem(key, String(startIndex));
+  } catch (e) {
+    // 若瀏覽器封鎖 localStorage，就退回隨機
+    const startIndex = Math.floor(Math.random() * slides.length);
+    document.querySelector('.slide.current')?.classList.remove('current');
+    slides[startIndex].classList.add('current');
+  }
+})();
+
 
 
   </script>
